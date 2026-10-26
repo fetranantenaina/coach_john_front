@@ -1,0 +1,20 @@
+COACH JOHN : FRONTEND (Angular, PWA)
+====================================
+Développement : npm install  &&  npm start    -> https://localhost:4200  (HTTPS ; proxy /api et /socket.io vers http://localhost:3000)
+                Le backend doit tourner sur le port 3000. Pour un téléphone : utilise l'adresse IP affichée.
+                (installe mkcert pour un HTTPS reconnu : winget install FiloSottile.mkcert)
+
+DÉPLOIEMENT SUR CLOUDFLARE PAGES (Git)
+  Build command           : npm run build
+  Build output directory  : dist/coach-john/browser
+  Root directory          : (vide) si ce dossier est la racine du dépôt, sinon "frontend"
+  Variables (Settings > Variables and Secrets) :
+     API_URL      = adresse du backend, ex. https://coach-john-api.onrender.com   (OBLIGATOIRE, sans slash final)
+     NODE_VERSION = 22                                                           (déjà couvert par .node-version)
+  Puis, côté backend, mets l'adresse du site dans CORS_ORIGIN (ex. https://coach-john-front.pages.dev) et redéploie le backend.
+
+DÉPLOIEMENT DIRECT (sans Git), PowerShell :
+  $env:API_URL="https://coach-john-api.onrender.com"
+  npm install
+  npm run build
+  npx wrangler pages deploy dist/coach-john/browser --project-name coach-john-front
